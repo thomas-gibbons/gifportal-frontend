@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import Switch from './components/switch';
 
 const TWITTER_HANDLE = '419NFT';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -9,6 +10,7 @@ const TWITTER_LOGO = 'https://pbs.twimg.com/profile_banners/1408984211101523969/
 const App = () => {
   // State of wallet connection
   const [walletAddress, setWalletAddress] = useState(null);
+  const [bgToggle, bgToggleSet] = useState(1);
   
   // Function that checks if solana wallet is connected
   const checkIfWalletIsConnected = async () => {
@@ -58,50 +60,44 @@ const App = () => {
     }
   };
 
-  // Function to render UI if wallet is already connected
-  const renderConnectedContainer = () => (
+  // Function to render UI differently if wallet is already connected
+  const renderConnectContainer = () => (
     <button
-      className="cta-button connect-wallet-button"
+      className='cta-button connect-wallet-button'
       onClick={connectWallet}
     >
-      Connected!
-    </button>
-  );
-
-  // and if its not connected
-  const renderNotConnectedContainer = () => (
-    <button
-      className="cta-button connect-wallet-button"
-      onClick={connectWallet}
-    >
-      Connect to Wallet
+      {walletAddress ? 'Connected!' : 'Connect to wallet'}
     </button>
   );
 
   // main body of page
   return (
-    <div className="App" style={{
-      backgroundImage: `url("/sky_banana.jpg")`,
-      backgroundRepeat: `no-repeat`,
-      backgroundAttachment: `fixed`,
-      backgroundSize: `100% 100%`
+    <div className='App' style={{
+      backgroundImage: bgToggle ? 'url("/sky_banana.jpg")' : 'url("/space_banana.jpg")',
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed',
+      backgroundSize: '100% 100%'
     }}>
       <div className={walletAddress ? 'authed-container' : 'container'}>
-        <div className="header-container">
-          <p className="header">Monke Tree</p>
-          <p className="sub-text">
+        <div className='header-container'>
+          <p className='header'>419 Treehouse</p>
+          <p className='sub-text'>
             A web3 app for 419 NFT holders
           </p>
-          {!walletAddress && renderNotConnectedContainer()}
-          {walletAddress && renderConnectedContainer()}
+          {renderConnectContainer()}
+          <Switch
+            isOn={bgToggle}
+            onColor='#EF476F'
+            handleToggle={() => bgToggleSet(!bgToggle)}
+          />
         </div>
-        <div className="footer-container">
-          <img alt="Twitter Logo" className="twitter-logo" src={TWITTER_LOGO} />
+        <div className='footer-container'>
+          <img alt='Twitter Logo' className='twitter-logo' src={TWITTER_LOGO} />
           <a
-            className="footer-text"
+            className='footer-text'
             href={TWITTER_LINK}
-            target="_blank"
-            rel="noreferrer"
+            target='_blank'
+            rel='noreferrer'
           >{TWITTER_HANDLE}</a>
         </div>
       </div>
