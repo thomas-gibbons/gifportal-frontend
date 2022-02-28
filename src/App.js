@@ -81,7 +81,7 @@ const App = () => {
   // main body of page
   return (
     <div className="App" style={{
-      backgroundImage: `url("https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/falling-bananas-thru-clouds-mary-ann-leitch.jpg")`,
+      backgroundImage: `url("/sky_banana.jpg")`,
       backgroundRepeat: `no-repeat`,
       backgroundAttachment: `fixed`,
       backgroundSize: `100% 100%`
