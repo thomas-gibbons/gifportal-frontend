@@ -14,7 +14,7 @@ const App = () => {
   const checkIfWalletIsConnected = async () => {
     try {
       const { solana } = window;
-
+      
       if (solana) {
         console.log('Solana wallet found');
         if (solana.isPhantom) {
@@ -45,7 +45,7 @@ const App = () => {
   const connectWallet = async () => {
     try {
       const { solana } = window;
-
+      
       if (solana) {
         const response = await solana.connect();
         console.log('Connected with Public Key:', response.publicKey.toString());
@@ -58,7 +58,17 @@ const App = () => {
     }
   };
 
-  // Function to render UI if wallet not yet connected
+  // Function to render UI if wallet is already connected
+  const renderConnectedContainer = () => (
+    <button
+      className="cta-button connect-wallet-button"
+      onClick={connectWallet}
+    >
+      Connected!
+    </button>
+  );
+
+  // and if its not connected
   const renderNotConnectedContainer = () => (
     <button
       className="cta-button connect-wallet-button"
@@ -83,6 +93,7 @@ const App = () => {
             A web3 app for 419 NFT holders
           </p>
           {!walletAddress && renderNotConnectedContainer()}
+          {walletAddress && renderConnectedContainer()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={TWITTER_LOGO} />
