@@ -13,14 +13,6 @@
   padding: 0 30px 0 30px;
 }
 
-.authed-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 30px 0 30px;
-}
-
 .header {
   margin: 0;
   font-size: 50px;
@@ -31,6 +23,28 @@
 .sub-text {
   font-size: 25px;
   color: black;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding-bottom: 45px;
+}
+
+.footer-text {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.twitter-logo {
+  width: 100px;
+  height: 35px;
 }
 
 .gradient-text {
@@ -66,28 +80,6 @@
   margin-left: 10px;
 }
 
-.footer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  padding-bottom: 45px;
-}
-
-.twitter-logo {
-  width: 100px;
-  height: 35px;
-}
-
-.footer-text {
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-}
-
 .gif-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -112,7 +104,7 @@
   object-fit: cover;
 }
 
-.connected-container input[type='text'] {
+.gif-container input[type='text'] {
   display: inline-block;
   color: white;
   padding: 10px;
@@ -120,12 +112,12 @@
   height: 60px;
   font-size: 16px;
   box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.05);
   border: none;
   border-radius: 10px;
   margin: 50px auto;
 }
 
-.connected-container button {
+.gif-container button {
   height: 50px;
 }
