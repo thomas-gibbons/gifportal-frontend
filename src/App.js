@@ -17,6 +17,7 @@ const App = () => {
   // State of wallet connection
   const [walletAddress, setWalletAddress] = useState(null);
   const [gifInput, setGifInput] = useState('');
+  const [gifList, setGifList] = useState([]);
   
   // Function that checks if solana wallet is connected
   const checkIfWalletIsConnected = async () => {
@@ -27,6 +28,8 @@ const App = () => {
         console.log('Solana wallet found');
         if (solana.isPhantom) {
           console.log('Phantom')
+        } else {
+          console.log('Unknown')
         }
         const response = await solana.connect({ onlyIfTrusted: true });
         console.log('Connected with Public Key:', response.publicKey.toString());
@@ -48,6 +51,16 @@ const App = () => {
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
   }, []);
+  
+  // Hook to load gifs when wallet has authenticated
+  useEffect(() => {
+    if (walletAddress) {
+      console.log('Fetching GIFs...');
+      // Call Solana program here.
+      setGifList(TEST_GIFS);
+      console.log('Done fetching GIFs.');
+    }
+  }, [walletAddress]);
   
   // Function to connect wallet
   const connectWallet = async () => {
@@ -94,7 +107,7 @@ const App = () => {
         <button type="submit" className="cta-button submit-gif-button">Submit</button>
       </form>
       <div className="gif-grid">
-        {TEST_GIFS.map(gif => (
+        {gifList.map(gif => (
           <div className="gif-item" key={gif}>
             <img src={gif} alt={gif} />
           </div>
@@ -113,6 +126,8 @@ const App = () => {
   const sendGif = async () => {
     if (gifInput.length > 0) {
       console.log('Gif link: ', gifInput);
+      setGifList([...gifList, gifInput]);
+      setGifInput('');
     } else {
       console.log('Empty input.');
     }
@@ -128,8 +143,10 @@ const App = () => {
     }}>
       <div className='container'>
         <div className='header-container'>
-          <p className='header'>419 Treehouse</p>
-          <p className='sub-text'>
+          <p className='header' style={{color: !walletAddress ? 'black' : 'white'}}>
+            419 Treehouse
+          </p>
+          <p className='sub-text' style={{color: !walletAddress ? 'black' : 'white'}}>
             A web3 app for 419 NFT holders
           </p>
           {!walletAddress && renderConnectContainer()}
